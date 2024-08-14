@@ -17,9 +17,11 @@ chmod +x main.sh
 ./main.sh
 ```
 
-## Usage
+## Resources
 
-You can use these bindings with public hubs – see [this list](https://foss.farchiver.xyz/hubs/list). See [example/example.go](example/example.go) for basic usage example which prints out new casts.
+1. To find public hubs you can use `hubble-grpc` with, see [this list of public hubs](https://foss.farchiver.xyz/hubs/list).
+2. To learn about the Farcaster Hub gRPC API, see the [Farcaster Hub API Docs](https://docs.farcaster.xyz/reference/hubble/architecture).
+3. For a basic example which prints out new casts, see [example/example.go](example/example.go).
 
 ## About
 

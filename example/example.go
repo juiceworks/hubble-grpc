@@ -39,7 +39,7 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	// Subscribe to new merged message hub events.
+	// Receive new messages as the hub merges them in.
 	evts := []pb.HubEventType{pb.HubEventType_HUB_EVENT_TYPE_MERGE_MESSAGE}
 	stream, err := c.Subscribe(ctx, &pb.SubscribeRequest{EventTypes: evts})
 	if err != nil {
@@ -55,6 +55,7 @@ func main() {
 				log.Fatalf("failed to receive message: %v", err)
 			}
 
+			// If the message is a new cast, print out its text.
 			data := msg.GetMergeMessageBody().GetMessage().GetData()
 			if data.GetType() == pb.MessageType_MESSAGE_TYPE_CAST_ADD {
 				castBody := data.GetCastAddBody()
@@ -63,6 +64,7 @@ func main() {
 		}
 	}()
 
+	// Wait for a signal to shut down.
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 	<-sc
